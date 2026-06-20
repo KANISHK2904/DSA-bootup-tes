@@ -55,6 +55,26 @@ Level-order traversal of the mirrored tree is:
 
 #include <stdio.h>
 
+void mirror(int a[], int n, int i)
+{
+    if(i >= n) return;
+
+    int left = 2*i + 1;
+    int right = 2*i + 2;
+
+    // recurse first
+    mirror(a, n, left);
+    mirror(a, n, right);
+
+    // then swap children
+    if(left < n && right < n)
+    {
+        int temp = a[left];
+        a[left] = a[right];
+        a[right] = temp;
+    }
+}
+
 int main()
 {
     int n;
@@ -65,21 +85,8 @@ int main()
     for(int i = 0; i < n; i++)
         scanf("%d", &a[i]);
 
-    // swap children in level-order (0-based indexing)
-    for(int i = 0; i < n; i++)
-    {
-        int left = 2 * i + 1;
-        int right = 2 * i + 2;
+    mirror(a, n, 0);
 
-        if(left < n && right < n)
-        {
-            int temp = a[left];
-            a[left] = a[right];
-            a[right] = temp;
-        }
-    }
-
-    // print level order
     for(int i = 0; i < n; i++)
         printf("%d ", a[i]);
 

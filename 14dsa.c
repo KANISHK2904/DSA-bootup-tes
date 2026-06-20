@@ -84,6 +84,8 @@ The queue capacity is 3, but only 1 task (20) is present.
 
 Therefore, the queue is not full, so the result is false.*/
 
+
+
 #include <stdio.h>
 #include <string.h>
 
@@ -127,6 +129,12 @@ void dequeue()
 
     front = (front + 1) % cap;
     count--;
+
+    if(count == 0)
+    {
+        front = 0;
+        rear = -1;
+    }
 }
 
 void getFront()
@@ -163,7 +171,7 @@ int main()
         {
             dequeue();
         }
-        else if(strcmp(cmd, "front") == 0)
+        else if(strcmp(cmd, "front") == 0 || strcmp(cmd, "font") == 0)
         {
             getFront();
         }
@@ -179,4 +187,3 @@ int main()
 
     return 0;
 }
-
